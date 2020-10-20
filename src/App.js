@@ -2,15 +2,14 @@ import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import 'firebase/auth'
 import './App.css';
 
-import Header from "./components/header/header.component";
-import HomePage from './pages/homepages/homepage.component';
-import ShopPage from "./pages/shop/shop.component";
-import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
-import {auth, createUserProfileDocument} from "./firebase/firebase.utlis";
-import {setCurrentUser} from "./redux/user/user.actions";
+import HomePage from './pages/homepage/homepage.component';
+import ShopPage from './pages/shop/shop.component';
+import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
+import Header from './components/header/header.component';
+import {auth, createUserProfileDocument} from './firebase/firebase.utils';
+import {setCurrentUser} from './redux/user/user.actions';
 
 class App extends React.Component {
 
@@ -23,20 +22,15 @@ class App extends React.Component {
             if (userAuth) {
                 const userRef = await createUserProfileDocument(userAuth);
 
-                userRef.onSnapshot(snapshot => {
+                userRef.onSnapshot(snapShot => {
                     setCurrentUser({
-                        currentUser: {
-                            id: snapshot.id,
-                            ...snapshot.data()
-                        }
+                        id: snapShot.id,
+                        ...snapShot.data()
                     });
                 });
-            } else {
-                setCurrentUser({
-                    currentUser: userAuth
-                })
             }
-        })
+            setCurrentUser(userAuth)
+        });
     }
 
     componentWillUnmount() {
@@ -50,10 +44,14 @@ class App extends React.Component {
                 <Switch>
                     <Route exact path='/' component={HomePage}/>
                     <Route path='/shop' component={ShopPage}/>
-                    <Route exact path='/singin'
-                           render={() => this.props.currentUser
-                               ? (<Redirect to='/'/>) :
-                               (<SignInAndSignUp/>)}
+                    <Route exact path='/signin'
+                           render={() =>
+                               this.props.currentUser ? (
+                                   <Redirect to='/'/>
+                               ) : (
+                                   <SignInAndSignUp/>
+                               )
+                           }
                     />
                 </Switch>
             </div>
