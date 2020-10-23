@@ -24,3 +24,18 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .header {
+    height: 60px;
+    margin-bottom: 20px;
+
+    .logo-container {
+      width: 50px;
+      padding: 0;
+    }
+    .options {
+      width: 80%;
+    }
+  }
+}

@@ -3,11 +3,13 @@
   height: 240px;
   flex: 1 1 auto;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   border: 1px solid black;
   margin: 0 7.5px 15px;
   overflow: hidden;
+
 
   &:hover {
     cursor: pointer;
@@ -33,7 +35,6 @@
   &:last-child {
     margin-left: 7.5px;
   }
-
 
 
   .background-image {
@@ -68,3 +69,21 @@
     }
   }
 }
+@media screen and (max-width: 768px) {
+  .menu-item {
+    height: 200px;
+
+  }}
+@media screen and (max-width: 468px) {
+  .menu-item {
+    height: 200px;
+  &:nth-last-child(1) {order: 1}
+  &:nth-last-child(2) {order: 2}
+  &:nth-last-child(3) {order: 3}
+  &:nth-last-child(4) {order: 4}
+  &:nth-last-child(5) {order: 5}
+  }
+}
+
+
+
