@@ -29,3 +29,9 @@
     font-size: 36px;
   }
 }
+@media screen and (max-width: 768px) {
+  .checkout-page {
+    margin: 10px auto 0;
+    width: 90%;
+  }
+}
